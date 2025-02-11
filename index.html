@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32"
+    href="https://img.icons8.com/?size=100&id=RVZL8CMFjWgC&format=png&color=000000">
+    <title>GERAR PLACAS DE PASSARINHO</title>
+    <style>
+        body {
+            font-family: "Roboto", serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-columns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-column {
+            flex: 1;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            flex: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        button.primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button.primary:hover {
+            background-color: #0056b3;
+        }
+
+        button.secondary {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button.secondary:hover {
+            background-color: #218838;
+        }
+
+        .placa {
+            margin-top: 20px;
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #c3e6cb;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 500px; 
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        .placa-info {
+            flex: 2;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .placa-info h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .placa-info p {
+            font-size: 14px;
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .placa-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .placa-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GERAR PLACAS DE PASSARINHO</h1>
+        <div class="form-columns">
+            <div class="form-column">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="nomeCientifico">Nome Científico:</label>
+                <input type="text" id="nomeCientifico" name="nomeCientifico" placeholder="Ex: Serinus canaria" required>
+
+                <label for="nomePopular">Nome Popular:</label>
+                <input type="text" id="nomePopular" name="nomePopular" placeholder="Ex: Canário-da-terra" required>
+
+                <label for="nascimento">Nascimento:</label>
+                <input type="date" id="nascimento" name="nascimento" required>
+
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="macho">Macho</option>
+                    <option value="femea">Fêmea</option>
+                </select>
+            </div>
+            <div class="form-column">
+                <label for="anilha">Nº de Anilha:</label>
+                <input type="text" id="anilha" name="anilha" required>
+
+                <label for="proprietario">Proprietário:</label>
+                <input type="text" id="proprietario" name="proprietario" required>
+
+                <label for="ctf">Registro CTF:</label>
+                <input type="text" id="ctf" name="ctf" required>
+
+                <label for="fundo">Escolha o Fundo:</label>
+                <select id="fundo" name="fundo" onchange="changeBackground()">
+                    <option value="#d4edda">Verde Claro (Padrão)</option>
+                    <option value="#f8d7da">Vermelho Claro</option>
+                    <option value="#fff3cd">Amarelo Claro</option>
+                    <option value="#d1ecf1">Azul Claro</option>
+                </select>
+
+                <div class="button-group">
+                    <button type="button" onclick="document.getElementById('customBackground').click()" class="primary">Enviar Fundo</button>
+                    <input type="file" id="customBackground" accept="image/*" style="display: none;" onchange="uploadCustomBackground(event)">
+                </div>
+
+                <label for="fotoPassarinho">Enviar Foto do Passarinho:</label>
+                <input type="file" id="fotoPassarinho" accept="image/*" onchange="carregarFoto(event)">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="button" onclick="generatePlate()" class="primary">Gerar Placa</button>
+            <button type="button" onclick="savePlate()" class="secondary">Salvar Placa como Imagem</button>
+        </div>
+
+        <div id="placa" class="placa">
+            <div class="placa-info">
+                <h2 id="placaNome"></h2>
+                <p><strong>Nome Científico:</strong> <span id="placaNomeCientifico"></span></p>
+                <p><strong>Nome Popular:</strong> <span id="placaNomePopular"></span></p>
+                <p><strong>Nascimento:</strong> <span id="placaNascimento"></span></p>
+                <p><strong>Sexo:</strong> <span id="placaSexo"></span></p>
+                <p><strong>Nº de Anilha:</strong> <span id="placaAnilha"></span></p>
+                <p><strong>Proprietário:</strong> <span id="placaProprietario"></span></p>
+                <p><strong>Registro CTF:</strong> <span id="placaCTF"></span></p>
+            </div>
+            <div class="placa-image">
+                <img src="placeholder.jpg" alt="Imagem do Passarinho" id="placaImagem">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function generatePlate() {
+            const nome = document.getElementById('nome').value;
+            const nomeCientifico = document.getElementById('nomeCientifico').value;
+            const nomePopular = document.getElementById('nomePopular').value;
+            const nascimento = document.getElementById('nascimento').value;
+            const sexo = document.getElementById('sexo').value;
+            const anilha = document.getElementById('anilha').value;
+            const proprietario = document.getElementById('proprietario').value;
+            const ctf = document.getElementById('ctf').value;
+
+            document.getElementById('placaNome').innerText = nome;
+            document.getElementById('placaNomeCientifico').innerText = nomeCientifico;
+            document.getElementById('placaNomePopular').innerText = nomePopular;
+            document.getElementById('placaNascimento').innerText = nascimento;
+            document.getElementById('placaSexo').innerText = sexo;
+            document.getElementById('placaAnilha').innerText = anilha;
+            document.getElementById('placaProprietario').innerText = proprietario;
+            document.getElementById('placaCTF').innerText = ctf;
+        }
+
+        function changeBackground() {
+            const fundo = document.getElementById('fundo').value;
+            const placa = document.getElementById('placa');
+            placa.style.backgroundImage = 'none';
+            placa.style.backgroundColor = fundo;
+        }
+
+        function uploadCustomBackground(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const placa = document.getElementById('placa');
+                    placa.style.backgroundImage = `url(${e.target.result})`;
+                    placa.style.backgroundSize = 'cover';
+                    placa.style.backgroundColor = 'transparent';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function carregarFoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById('placaImagem');
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function savePlate() {
+            const placa = document.getElementById('placa');
+            html2canvas(placa, {
+                scale: 2, 
+                logging: true, 
+                useCORS: true 
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'placa-passarinho.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
