@@ -163,8 +163,8 @@
 
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo" required>
-                    <option value="macho">Macho</option>
-                    <option value="femea">Fêmea</option>
+                    <option value="MACHO">MACHO</option>
+                    <option value="FÊMEA">FÊMEA</option>
                 </select>
             </div>
             <div class="form-column">
@@ -219,25 +219,28 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        function generatePlate() {
-            const nome = document.getElementById('nome').value;
-            const nomeCientifico = document.getElementById('nomeCientifico').value;
-            const nomePopular = document.getElementById('nomePopular').value;
-            const nascimento = document.getElementById('nascimento').value;
-            const sexo = document.getElementById('sexo').value;
-            const anilha = document.getElementById('anilha').value;
-            const proprietario = document.getElementById('proprietario').value;
-            const ctf = document.getElementById('ctf').value;
+ function generatePlate() {
+    const nome = document.getElementById('nome').value;
+    const nomeCientifico = document.getElementById('nomeCientifico').value;
+    const nomePopular = document.getElementById('nomePopular').value;
+    const nascimento = document.getElementById('nascimento').value;
+    const sexo = document.getElementById('sexo').value;
+    const anilha = document.getElementById('anilha').value;
+    const proprietario = document.getElementById('proprietario').value;
+    const ctf = document.getElementById('ctf').value;
 
-            document.getElementById('placaNome').innerText = nome;
-            document.getElementById('placaNomeCientifico').innerText = nomeCientifico;
-            document.getElementById('placaNomePopular').innerText = nomePopular;
-            document.getElementById('placaNascimento').innerText = nascimento;
-            document.getElementById('placaSexo').innerText = sexo;
-            document.getElementById('placaAnilha').innerText = anilha;
-            document.getElementById('placaProprietario').innerText = proprietario;
-            document.getElementById('placaCTF').innerText = ctf;
-        }
+
+    const dataFormatada = nascimento.split('-').reverse().join('/');
+
+    document.getElementById('placaNome').innerText = nome;
+    document.getElementById('placaNomeCientifico').innerText = nomeCientifico;
+    document.getElementById('placaNomePopular').innerText = nomePopular;
+    document.getElementById('placaNascimento').innerText = dataFormatada; 
+    document.getElementById('placaSexo').innerText = sexo;
+    document.getElementById('placaAnilha').innerText = anilha;
+    document.getElementById('placaProprietario').innerText = proprietario;
+    document.getElementById('placaCTF').innerText = ctf;
+}
 
         function changeBackground() {
             const fundo = document.getElementById('fundo').value;
@@ -245,7 +248,7 @@
             placa.style.backgroundImage = 'none';
             placa.style.backgroundColor = fundo;
         }
-
+     
         function uploadCustomBackground(event) {
             const file = event.target.files[0];
             if (file) {
